@@ -1,0 +1,28 @@
+class Solution {
+    /**
+    Method returns the String length of last word in String
+    @param String s a String 
+    @return int length of last word in String
+    **/ 
+    public int lengthOfLastWord(String s) {
+        if(s==""){
+            return 0;
+        }
+        int length=0;
+        boolean space=true;
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)==' '){
+                space=true;
+            }
+            else{
+                if (space) {
+                    length = 1;
+                } else {
+                    length++;
+                }
+                 space = false;
+            }
+        }
+        return length;
+    }
+}
