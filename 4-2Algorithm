@@ -1,0 +1,24 @@
+/**
+ * Given a string, sort it in decreasing order based on the frequency of characters.
+ * @param {string} s input string
+ * @return {string} output string based on frequency greatest to least 
+ */
+var frequencySort = function(s) {
+    //keeps track of chars
+    let frontier ={}; 
+    for(let char of s){ // store characters Frequency of given string in map
+        //if char in frontier already, increment +1, if not, make it 1
+        frontier[char] ? frontier[char]++ : frontier[char]=1;
+    }
+    
+    // frequency in descending order by frontier keys
+    let SortedCharArr = Object.keys(frontier).sort((a,b)=>frontier[b]-frontier[a]);
+    
+    let result = "";
+    
+    // iterate through arr for each char and repeat based on the frequency of char
+    for(let char of SortedCharArr)
+        result += char.repeat(frontier[char]);
+    
+    return result;
+};
