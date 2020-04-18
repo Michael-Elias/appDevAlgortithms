@@ -1,0 +1,52 @@
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isValid = function(s) {
+    
+    //stack keeps track of open "first" parens in order to keep balance
+    var stack = []
+    
+    //made dictionaries so that I can check if they are contained within the string
+    var openParen = {
+        "(" : 0,
+        "[" : 1,
+        "{" : 2
+    }
+    
+    var closeParen = {
+        ")" : 0,
+        "]" : 1,
+        "}" : 2
+    }
+    
+    for(let i = 0; i < s.length; i++) {
+        //check illegal closeParens first 
+        if(s[i] in closeParen) {
+            //Closing Paren can't come before Open
+            //therefore if no first parens yet, it's illegal
+            if(stack.length == 0) {
+                return false
+                //Closing Paren can't mismatch with top of stack
+                //Check if the index of the open and close parens match up
+            } else if(closeParen[s[i]] != openParen[stack[stack.length-1]]) {
+                    return false
+            } else {
+                //if passes all the illegal cases, then it is valid and is removed
+                //Matching case, pop
+                stack.pop()
+            }
+            //First open parens come before close parens, add to stack till they are "completed"
+            //Push Open Parens to stack
+        } else if(s[i] in openParen) {
+            stack.push(s[i])
+        }
+    }
+    //because stack represents balancing, if there are some still in stack after iteration, it is not balanced
+    //Unmatched Open Paren(s)
+    if(stack.length > 0) {
+        return false
+    }
+    
+    return true
+};
